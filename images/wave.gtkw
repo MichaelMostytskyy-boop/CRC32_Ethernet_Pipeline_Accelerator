@@ -1,0 +1,61 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Thu Jan 22 10:53:08 2026
+[*]
+[dumpfile] "C:\projects\CRC32_Project\images\waves.vcd"
+[savefile] "C:\projects\CRC32_Project\images\wave.gtkw"
+[timestart] 0
+[size] 2560 1369
+[pos] -113 -113
+*-14.898483 21 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 197
+[signals_width] 150
+[sst_expanded] 1
+[sst_vpaned_height] 423
+@29
+[color] 3
+u_dut.clk
+@200
+-
+-
+-
+@28
+u_dut.reset_n
+@200
+-
+-
+-
+@28
+u_dut.enable
+@200
+-
+-
+-
+@28
+u_dut.start_of_packet
+@200
+-
+-
+-
+@28
+u_dut.last_word
+@200
+-
+-
+-
+@22
+u_dut.data_in[31:0]
+@200
+-
+-
+-
+@22
+u_dut.crc_out[31:0]
+@200
+-
+-
+-
+@28
+u_dut.valid_out
+[pattern_trace] 1
+[pattern_trace] 0

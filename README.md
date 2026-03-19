@@ -91,6 +91,12 @@ The current implementation computes the full 32-bit CRC update in a single combi
 | **crc_out** | Output | 32-bit | **CRC Result**. The final calculated, bit-reversed, and inverted checksum. |
 | **valid_out** | Output | 1-bit | **Result Ready**. Indicates `crc_out` contains a valid result (asserted 1 cycle after `last_word`). 
 
+### Control Signals & Reset Behavior
+The CRC engine's state is governed by a strict hierarchy between the reset, enable, and start-of-packet signals:
+* **System Reset (`reset_n`):** This is an asynchronous active-low reset. When asserted (LOW), it immediately clears the pipeline and forces the internal CRC register to the initialization seed (`0xFFFFFFFF`), completely independent of the clock or the `enable` signal.
+* **Hold State (`enable` LOW):** If the `enable` signal is LOW, the entire engine freezes. The current CRC state is held, the pipeline is paused, and any changes on `data_in` or assertions of `start_of_packet` are **completely ignored** until `enable` goes HIGH again.
+* **Frame Initialization (`start_of_packet`):** This synchronously resets the CRC calculation for a new frame. Because of the hold state logic, `start_of_packet` is **only evaluated when `enable` is HIGH**.
+
 ## 5. Verification & Simulation
 The project includes a comprehensive, self-checking SystemVerilog Testbench (`tb_crc32.sv`) covering:
 * **Pipeline Latency:** Verifies the 1-cycle delay between input data and valid output.
