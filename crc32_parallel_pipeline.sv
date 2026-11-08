@@ -4,7 +4,17 @@
     Hardware implementation of a parallel CRC32 engine (IEEE 802.3)
     Processes 32 bits per cycle using LSB-first logic (Poly 0xEDB88320)
     This standard approach avoids manual bit-reversal logic
+
+    Two register stages: (1) input capture, (2) CRC state / valid.
+    valid_out is seen 2 clock edges after last_word is sampled.
+
+    Compile options:
+      +define+CRC_ASSERT           enable SVA (needs a simulator with concurrent-assertion support)
+      +define+INJECT_CRC_BUG       mutation: wrong final CRC bit (testbench sensitivity check)
+      +define+INJECT_LATENCY_BUG   mutation: valid_out one cycle late (SVA sensitivity check)
 */
+
+`timescale 1ns / 1ps
 
 module CRC32_parallel_pipeline #(
     parameter logic [31:0] CRC_INIT = 32'hFFFFFFFF
@@ -106,11 +116,57 @@ module CRC32_parallel_pipeline #(
     end
 
     // Connect the internal registers to the outputs
+`ifdef INJECT_CRC_BUG
+    assign crc_out   = ~LFSR_Q ^ 32'h0000_0001;   // intentional bug: flips bit 0 of the result
+`else
     assign crc_out   = ~LFSR_Q;
-    assign valid_out = valid_out_reg; 
+`endif
+
+`ifdef INJECT_LATENCY_BUG
+    // intentional bug: valid_out is delayed by one extra cycle
+    logic valid_out_dly;
+    always_ff @(posedge clk or negedge reset_n) begin
+        if (!reset_n) valid_out_dly <= 1'b0;
+        else          valid_out_dly <= valid_out_reg;
+    end
+    assign valid_out = valid_out_dly;
+`else
+    assign valid_out = valid_out_reg;
+`endif
 
 
-    // Immediate Assertions
+`ifdef CRC_ASSERT
+    // ---------------- Protocol / latency assertions (SVA) ----------------
+    int sva_fails = 0;   // read by the testbench so a failed assertion is never reported as PASSED
+
+    default clocking cb @(posedge clk); endclocking
+    default disable iff (!reset_n);
+
+    // Control signals are only legal while enable is high
+    a_sop_needs_enable: assert property (start_of_packet |-> enable)
+        else begin sva_fails++; $error("[SVA] start_of_packet asserted without enable"); end
+
+    a_last_needs_enable: assert property (last_word |-> enable)
+        else begin sva_fails++; $error("[SVA] last_word asserted without enable"); end
+
+    // Latency: valid_out is seen 2 clock edges after last_word is sampled
+    a_latency: assert property ((enable && last_word) |-> ##2 valid_out)
+        else begin sva_fails++; $error("[SVA] valid_out did not rise 2 cycles after last_word"); end
+
+    // valid_out only ever follows a last_word (no spurious valid)
+    a_no_spurious_valid: assert property (valid_out |-> $past(enable && last_word, 2))
+        else begin sva_fails++; $error("[SVA] valid_out without a matching last_word"); end
+
+    // Hold behavior: the result does not change while the pipeline has no valid data
+    a_hold_state: assert property ((!enable_pipe) |=> $stable(crc_out))
+        else begin sva_fails++; $error("[SVA] crc_out changed while the engine was idle"); end
+
+    // Cover: true back-to-back frames (no idle cycle between them)
+    c_back_to_back: cover property ((enable && last_word) ##1 (enable && start_of_packet));
+    // Cover: a normal frame with a gap before the next one
+    c_gap_between:  cover property ((enable && last_word) ##1 !enable);
+`else
+    // Fallback checks for simulators without concurrent-assertion support (e.g. Icarus)
     always @(posedge clk) begin
         if (reset_n) begin
             // Check 1: start_of_packet should only be high if enable is high
@@ -124,5 +180,6 @@ module CRC32_parallel_pipeline #(
             end
         end
     end
+`endif
 
 endmodule

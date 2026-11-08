@@ -1,4 +1,3 @@
-
 /* Michael Mostytskyy
    Project: CRC32 Ethernet Accelerator
    Description:
@@ -6,7 +5,11 @@
     Processes 32 bits per cycle using LSB-first logic.
     Features:
     - Automatic bit-reversal of the official polynomial (0x04C11DB7 -> 0xEDB88320).
-    - Single stage pipeline for timing isolation.
+    - Two register stages: input capture and CRC state (timing isolation of the XOR network).
+
+    Testbench: self-checking scoreboard, golden vectors, edge cases, randomized traffic,
+    gaps between packets and true back-to-back packets (no idle cycle).
+    With +define+CRC_ASSERT the DUT's SVA failures are added to the final status.
 */
 
 `timescale 1ns / 1ps
@@ -27,9 +30,11 @@ module tb_crc32;
     logic [31:0] expected_queue [$]; 
     int          error_count = 0;
     int          packets_received = 0;
+    logic [31:0] last_crc;          // CRC seen at the most recent valid_out
 
-    // Golden CRC Parameter
-    localparam logic [31:0] GOLDEN_CRC = 32'hAF6D87D2;
+    // Golden CRC Parameters (verified against zlib.crc32 on little-endian bytes)
+    localparam logic [31:0] GOLDEN_CRC    = 32'hAF6D87D2;   // 0x12345678
+    localparam logic [31:0] AVALANCHE_CRC = 32'h17D1E0B7;   // 0x12345679
 
     // Clock Generation
     initial begin
@@ -73,7 +78,7 @@ module tb_crc32;
         return ~crc_reg;
     endfunction
 
-    // Drive Task
+    // Drive Task (one packet, idle cycle afterwards)
     task automatic drive_packet(input logic [31:0] data[]);
         logic [31:0] calculated_crc;
         int pkt_len;
@@ -97,12 +102,38 @@ module tb_crc32;
         data_in         <= 0;
     endtask
 
+    // Drive Task: two packets with NO idle cycle between them
+    task automatic drive_b2b(input logic [31:0] a[], input logic [31:0] b[]);
+        int na;
+        int nb;
+        na = a.size();
+        nb = b.size();
+
+        expected_queue.push_back(calculate_reference_crc(a));
+        expected_queue.push_back(calculate_reference_crc(b));
+
+        @(posedge clk);
+        enable <= 1;
+        for (int i = 0; i < na + nb; i++) begin
+            start_of_packet <= (i == 0) || (i == na);
+            last_word       <= (i == na - 1) || (i == na + nb - 1);
+            data_in         <= (i < na) ? a[i] : b[i - na];
+            @(posedge clk);
+        end
+
+        enable          <= 0;
+        start_of_packet <= 0;
+        last_word       <= 0;
+        data_in         <= 0;
+    endtask
+
     // Monitor Process
     initial begin
         forever begin
             @(posedge clk);
             if (valid_out) begin
                 logic [31:0] expected;
+                last_crc = crc_out;
                 if (expected_queue.size() == 0) begin
                     $error("Time %0t: Unexpected valid_out! Queue is empty.", $time);
                     error_count++;
@@ -128,10 +159,16 @@ module tb_crc32;
         // --- Variable Declarations (MUST BE AT TOP) ---
         logic [31:0] pkt1[];
         logic [31:0] pkt2[];
-        logic [31:0] zeros_pkt[]; // Moved up here
-        logic [31:0] ones_pkt[];  // Moved up here
+        logic [31:0] pkt3[];
+        logic [31:0] zeros_pkt[];
+        logic [31:0] ones_pkt[];
         logic [31:0] random_pkt[];
+        logic [31:0] rb_a[];
+        logic [31:0] rb_b[];
         int random_len;
+        int len_a;
+        int len_b;
+        int total_errors;
 
         // Init
         reset_n = 0; enable = 0; start_of_packet = 0; last_word = 0; data_in = 0;
@@ -144,21 +181,41 @@ module tb_crc32;
 
                 $display("--- Starting Verification ---");
 
-                // 1. Golden Vector
+                // 1. Golden Vector (0x12345678 -> 0xAF6D87D2)
                 pkt1 = '{32'h12345678};
                 drive_packet(pkt1);
                 
                 while (packets_received < 1) @(posedge clk);
-                if (crc_out == GOLDEN_CRC) 
-                    $display(">> GOLDEN CHECK PASSED (0x%h)", crc_out);
-                else 
-                    $error(">> GOLDEN CHECK FAILED");
+                if (last_crc === GOLDEN_CRC) 
+                    $display(">> GOLDEN CHECK PASSED (0x%h)", last_crc);
+                else begin
+                    $error(">> GOLDEN CHECK FAILED: got 0x%h", last_crc);
+                    error_count++;
+                end
                 #50;
 
-                // 2. Back-to-Back
+                // 1.5 One-bit change in the input must change the CRC (0x12345679 -> 0x17D1E0B7)
+                pkt3 = '{32'h12345679};
+                drive_packet(pkt3);
+                while (expected_queue.size() > 0) @(posedge clk);
+                if (last_crc === AVALANCHE_CRC && last_crc !== GOLDEN_CRC)
+                    $display(">> ONE-BIT-CHANGE CHECK PASSED (0x%h)", last_crc);
+                else begin
+                    $error(">> ONE-BIT-CHANGE CHECK FAILED: got 0x%h", last_crc);
+                    error_count++;
+                end
+                #50;
+
+                // 2. Packets with an idle gap between them
                 pkt2 = '{32'hDEADBEEF, 32'hCAFEBABE};
                 drive_packet(pkt2); 
                 drive_packet(pkt1);
+                #50;
+
+                // 2.1 True back-to-back packets (no idle cycle between them)
+                $display("--- Testing True Back-to-Back ---");
+                drive_b2b(pkt2, pkt1);
+                drive_b2b(pkt1, pkt1);   // two single-word packets in consecutive cycles
                 #50;
 
                 // 2.5 Edge Cases: All Zeros and All Ones
@@ -185,18 +242,43 @@ module tb_crc32;
                     #20;
                 end
 
+                // 3.5 Random back-to-back pairs
+                $display("--- Starting Randomized Back-to-Back Traffic ---");
+                for (int i = 0; i < 10; i++) begin
+                    len_a = $urandom_range(1, 6);
+                    len_b = $urandom_range(1, 6);
+                    rb_a = new[len_a];
+                    rb_b = new[len_b];
+                    foreach(rb_a[j]) rb_a[j] = $urandom();
+                    foreach(rb_b[j]) rb_b[j] = $urandom();
+                    drive_b2b(rb_a, rb_b);
+                    #20;
+                end
+
                 // Wait for completion
                 while (expected_queue.size() > 0) begin
                     @(posedge clk);
                 end
                 #500;
                 
+                total_errors = error_count;
+`ifdef CRC_ASSERT
+                total_errors = total_errors + u_dut.sva_fails;
+`endif
+
                 $display("\n--- TEST FINISHED ---");
-                if (error_count == 0) begin
+                if (total_errors == 0) begin
                     $display("\n SUCCESS: All %0d packets passed.", packets_received);
-                    $display(" Scoreboard Empty. No Protocol Violations.\n");
+`ifdef CRC_ASSERT
+                    $display(" Scoreboard Empty. SVA failures: %0d.\n", u_dut.sva_fails);
+`else
+                    $display(" Scoreboard Empty. (SVA not enabled)\n");
+`endif
                 end else begin
-                    $display("FAILURE: %0d errors found.", error_count);
+                    $display("FAILURE: %0d errors found (scoreboard/golden: %0d).", total_errors, error_count);
+`ifdef CRC_ASSERT
+                    $display("         SVA failures: %0d", u_dut.sva_fails);
+`endif
                 end
             end
 
