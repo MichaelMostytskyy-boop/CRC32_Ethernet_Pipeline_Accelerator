@@ -1,0 +1,87 @@
+[2026-11-08 18:17:50 UTC] xrun -Q -unbuffered '+define+CRC_ASSERT' '-coverage' 'functional' '+access+r' '-access' '+rw' design.sv testbench.sv  
+TOOL:	xrun	25.03-s001: Started on Nov 08, 2026 at 13:17:50 EST
+xrun: 25.03-s001: (c) Copyright 1995-2025 Cadence Design Systems, Inc.
+	Top level design units:
+		tb_crc32
+Loading snapshot worklib.tb_crc32:sv .................... Done
+SVSEED default: 1
+xcelium> source /xcelium25.03/tools/xcelium/files/xmsimrc
+xcelium> run
+--- Starting Verification ---
+Time 105000: Packet 1 Verified. CRC: af6d87d2
+>> GOLDEN CHECK PASSED (0xaf6d87d2)
+Time 185000: Packet 2 Verified. CRC: 17d1e0b7
+>> ONE-BIT-CHANGE CHECK PASSED (0x17d1e0b7)
+Time 275000: Packet 3 Verified. CRC: 1835baa3
+Time 295000: Packet 4 Verified. CRC: af6d87d2
+--- Testing True Back-to-Back ---
+Time 365000: Packet 5 Verified. CRC: 1835baa3
+Time 375000: Packet 6 Verified. CRC: af6d87d2
+Time 395000: Packet 7 Verified. CRC: af6d87d2
+Time 405000: Packet 8 Verified. CRC: af6d87d2
+--- Testing Edge Cases ---
+Time 505000: Packet 9 Verified. CRC: 0fd59b8d
+Time 565000: Packet 10 Verified. CRC: 2cf772b0
+--- Starting Randomized Traffic ---
+Time 675000: Packet 11 Verified. CRC: bcc3b98d
+Time 755000: Packet 12 Verified. CRC: 152d83c0
+Time 845000: Packet 13 Verified. CRC: 7b93cb60
+Time 955000: Packet 14 Verified. CRC: 910ad3f3
+Time 1055000: Packet 15 Verified. CRC: 6f4ee743
+Time 1115000: Packet 16 Verified. CRC: 9503591c
+Time 1225000: Packet 17 Verified. CRC: 76decd92
+Time 1325000: Packet 18 Verified. CRC: 6201c75d
+Time 1355000: Packet 19 Verified. CRC: d7ec4b72
+Time 1385000: Packet 20 Verified. CRC: 1fc5de45
+Time 1455000: Packet 21 Verified. CRC: b2acd629
+Time 1495000: Packet 22 Verified. CRC: 016364f1
+Time 1605000: Packet 23 Verified. CRC: fd02f79d
+Time 1635000: Packet 24 Verified. CRC: a56bbea0
+Time 1735000: Packet 25 Verified. CRC: 53e23d8c
+Time 1805000: Packet 26 Verified. CRC: e89e35aa
+Time 1885000: Packet 27 Verified. CRC: 5470f84f
+Time 1935000: Packet 28 Verified. CRC: fa25a37d
+Time 2045000: Packet 29 Verified. CRC: 798ef810
+--- Starting Randomized Back-to-Back Traffic ---
+Time 2115000: Packet 30 Verified. CRC: 3988c928
+Time 2165000: Packet 31 Verified. CRC: 80408057
+Time 2225000: Packet 32 Verified. CRC: 4002feb5
+Time 2295000: Packet 33 Verified. CRC: 32e7be99
+Time 2315000: Packet 34 Verified. CRC: 99030b88
+Time 2385000: Packet 35 Verified. CRC: d2da1587
+Time 2405000: Packet 36 Verified. CRC: 8ff20527
+Time 2475000: Packet 37 Verified. CRC: ea8da1f9
+Time 2505000: Packet 38 Verified. CRC: fb05cdef
+Time 2535000: Packet 39 Verified. CRC: 1366081b
+Time 2555000: Packet 40 Verified. CRC: b2c4bb2c
+Time 2615000: Packet 41 Verified. CRC: ea74b533
+Time 2645000: Packet 42 Verified. CRC: 0fa93e0f
+Time 2715000: Packet 43 Verified. CRC: 88018360
+Time 2725000: Packet 44 Verified. CRC: 848cc2d3
+Time 2755000: Packet 45 Verified. CRC: ba5ba257
+Time 2785000: Packet 46 Verified. CRC: 182ef523
+Time 2855000: Packet 47 Verified. CRC: cf42c6e2
+Time 2905000: Packet 48 Verified. CRC: fbe6cd8e
+Time 2965000: Packet 49 Verified. CRC: 5d9d0fe3
+Time 3025000: Packet 50 Verified. CRC: c6a36658
+
+--- TEST FINISHED ---
+
+ SUCCESS: All 50 packets passed.
+ Scoreboard Empty. SVA failures: 0.
+
+Simulation complete via $finish(1) at time 3525 NS + 0
+./testbench.sv:292         $finish;
+xcelium> exit
+
+coverage setup:
+  workdir  :  ./cov_work
+  dutinst  :  tb_crc32(tb_crc32)
+  scope    :  scope
+  testname :  test
+
+coverage files:
+  model(design data) :  ./cov_work/scope/icc_00000000_4aa9fd80.ucm
+  data               :  ./cov_work/scope/test/icc_00000000_4aa9fd80.ucd
+TOOL:	xrun	25.03-s001: Exiting on Nov 08, 2026 at 13:17:51 EST  (total: 00:00:01)
+Done

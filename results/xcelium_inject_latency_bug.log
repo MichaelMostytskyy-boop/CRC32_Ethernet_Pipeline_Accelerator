@@ -1,0 +1,296 @@
+[2026-11-08 18:19:13 UTC] xrun -Q -unbuffered '+define+CRC_ASSERT+INJECT_LATENCY_BUG' '-coverage' 'functional' '+access+r' '-access' '+rw' design.sv testbench.sv  
+TOOL:	xrun	25.03-s001: Started on Nov 08, 2026 at 13:19:13 EST
+xrun: 25.03-s001: (c) Copyright 1995-2025 Cadence Design Systems, Inc.
+	Top level design units:
+		tb_crc32
+Loading snapshot worklib.tb_crc32:sv .................... Done
+SVSEED default: 1
+xcelium> source /xcelium25.03/tools/xcelium/files/xmsimrc
+xcelium> run
+--- Starting Verification ---
+xmsim: *E,ASRTST (./design.sv,154): (time 105 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 115000: Packet 1 Verified. CRC: af6d87d2
+>> GOLDEN CHECK PASSED (0xaf6d87d2)
+xmsim: *E,ASRTST (./design.sv,158): (time 115 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 195 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 205000: Packet 2 Verified. CRC: 17d1e0b7
+>> ONE-BIT-CHANGE CHECK PASSED (0x17d1e0b7)
+xmsim: *E,ASRTST (./design.sv,158): (time 205 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 295 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 305000: Packet 3 Verified. CRC: 1835baa3
+xmsim: *E,ASRTST (./design.sv,158): (time 305 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 315 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 325000: Packet 4 Verified. CRC: af6d87d2
+xmsim: *E,ASRTST (./design.sv,158): (time 325 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+--- Testing True Back-to-Back ---
+xmsim: *E,ASRTST (./design.sv,154): (time 385 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 395 NS).
+tb_crc32.unmblk1
+Time 395000: CRC Mismatch! Exp: 1835baa3, Got: af6d87d2
+Time 405000: Packet 6 Verified. CRC: af6d87d2
+xmsim: *E,ASRTST (./design.sv,158): (time 405 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 415 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 425000: Packet 7 Verified. CRC: af6d87d2
+Time 435000: Packet 8 Verified. CRC: af6d87d2
+xmsim: *E,ASRTST (./design.sv,158): (time 435 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+--- Testing Edge Cases ---
+xmsim: *E,ASRTST (./design.sv,154): (time 525 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 535000: Packet 9 Verified. CRC: 0fd59b8d
+xmsim: *E,ASRTST (./design.sv,158): (time 535 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 585 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 595000: Packet 10 Verified. CRC: 2cf772b0
+xmsim: *E,ASRTST (./design.sv,158): (time 595 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+--- Starting Randomized Traffic ---
+xmsim: *E,ASRTST (./design.sv,154): (time 695 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 705000: Packet 11 Verified. CRC: bcc3b98d
+xmsim: *E,ASRTST (./design.sv,158): (time 705 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 775 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 785000: Packet 12 Verified. CRC: 152d83c0
+xmsim: *E,ASRTST (./design.sv,158): (time 785 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 865 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 875000: Packet 13 Verified. CRC: 7b93cb60
+xmsim: *E,ASRTST (./design.sv,158): (time 875 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 975 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 985000: Packet 14 Verified. CRC: 910ad3f3
+xmsim: *E,ASRTST (./design.sv,158): (time 985 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 1075 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 1085000: Packet 15 Verified. CRC: 6f4ee743
+xmsim: *E,ASRTST (./design.sv,158): (time 1085 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 1135 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 1145000: Packet 16 Verified. CRC: 9503591c
+xmsim: *E,ASRTST (./design.sv,158): (time 1145 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 1245 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 1255000: Packet 17 Verified. CRC: 76decd92
+xmsim: *E,ASRTST (./design.sv,158): (time 1255 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 1345 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 1355000: Packet 18 Verified. CRC: 6201c75d
+xmsim: *E,ASRTST (./design.sv,158): (time 1355 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 1375 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 1385000: Packet 19 Verified. CRC: d7ec4b72
+xmsim: *E,ASRTST (./design.sv,158): (time 1385 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 1405 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 1415000: Packet 20 Verified. CRC: 1fc5de45
+xmsim: *E,ASRTST (./design.sv,158): (time 1415 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 1475 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 1485000: Packet 21 Verified. CRC: b2acd629
+xmsim: *E,ASRTST (./design.sv,158): (time 1485 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 1515 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 1525000: Packet 22 Verified. CRC: 016364f1
+xmsim: *E,ASRTST (./design.sv,158): (time 1525 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 1625 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 1635000: Packet 23 Verified. CRC: fd02f79d
+xmsim: *E,ASRTST (./design.sv,158): (time 1635 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 1655 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 1665000: Packet 24 Verified. CRC: a56bbea0
+xmsim: *E,ASRTST (./design.sv,158): (time 1665 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 1755 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 1765000: Packet 25 Verified. CRC: 53e23d8c
+xmsim: *E,ASRTST (./design.sv,158): (time 1765 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 1825 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 1835000: Packet 26 Verified. CRC: e89e35aa
+xmsim: *E,ASRTST (./design.sv,158): (time 1835 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 1905 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 1915000: Packet 27 Verified. CRC: 5470f84f
+xmsim: *E,ASRTST (./design.sv,158): (time 1915 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 1955 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 1965000: Packet 28 Verified. CRC: fa25a37d
+xmsim: *E,ASRTST (./design.sv,158): (time 1965 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2065 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 2075000: Packet 29 Verified. CRC: 798ef810
+xmsim: *E,ASRTST (./design.sv,158): (time 2075 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+--- Starting Randomized Back-to-Back Traffic ---
+xmsim: *E,ASRTST (./design.sv,154): (time 2135 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 2145000: Packet 30 Verified. CRC: 3988c928
+xmsim: *E,ASRTST (./design.sv,158): (time 2145 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2185 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2195 NS).
+tb_crc32.unmblk1
+Time 2195000: CRC Mismatch! Exp: 80408057, Got: 43469a56
+xmsim: *E,ASRTST (./design.sv,158): (time 2195 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2245 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 2255000: Packet 32 Verified. CRC: 4002feb5
+xmsim: *E,ASRTST (./design.sv,158): (time 2255 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2315 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2325 NS).
+tb_crc32.unmblk1
+Time 2325000: CRC Mismatch! Exp: 32e7be99, Got: 2cd883f9
+xmsim: *E,ASRTST (./design.sv,158): (time 2325 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2335 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 2345000: Packet 34 Verified. CRC: 99030b88
+xmsim: *E,ASRTST (./design.sv,158): (time 2345 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2405 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2415 NS).
+tb_crc32.unmblk1
+Time 2415000: CRC Mismatch! Exp: d2da1587, Got: 398cefc1
+xmsim: *E,ASRTST (./design.sv,158): (time 2415 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2425 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 2435000: Packet 36 Verified. CRC: 8ff20527
+xmsim: *E,ASRTST (./design.sv,158): (time 2435 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2495 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2505 NS).
+tb_crc32.unmblk1
+Time 2505000: CRC Mismatch! Exp: ea8da1f9, Got: f70671e6
+xmsim: *E,ASRTST (./design.sv,158): (time 2505 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2525 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 2535000: Packet 38 Verified. CRC: fb05cdef
+xmsim: *E,ASRTST (./design.sv,158): (time 2535 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2555 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2565 NS).
+tb_crc32.unmblk1
+Time 2565000: CRC Mismatch! Exp: 1366081b, Got: 9eb9e981
+xmsim: *E,ASRTST (./design.sv,158): (time 2565 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2575 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 2585000: Packet 40 Verified. CRC: b2c4bb2c
+xmsim: *E,ASRTST (./design.sv,158): (time 2585 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2635 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2645 NS).
+tb_crc32.unmblk1
+Time 2645000: CRC Mismatch! Exp: ea74b533, Got: f295ff48
+xmsim: *E,ASRTST (./design.sv,158): (time 2645 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2665 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 2675000: Packet 42 Verified. CRC: 0fa93e0f
+xmsim: *E,ASRTST (./design.sv,158): (time 2675 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2735 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2745 NS).
+tb_crc32.unmblk1
+Time 2745000: CRC Mismatch! Exp: 88018360, Got: 848cc2d3
+Time 2755000: Packet 44 Verified. CRC: 848cc2d3
+xmsim: *E,ASRTST (./design.sv,158): (time 2755 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2775 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2785 NS).
+tb_crc32.unmblk1
+Time 2785000: CRC Mismatch! Exp: ba5ba257, Got: f9a870ef
+xmsim: *E,ASRTST (./design.sv,158): (time 2785 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2805 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 2815000: Packet 46 Verified. CRC: 182ef523
+xmsim: *E,ASRTST (./design.sv,158): (time 2815 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2875 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2885 NS).
+tb_crc32.unmblk1
+Time 2885000: CRC Mismatch! Exp: cf42c6e2, Got: 9b83e8bb
+xmsim: *E,ASRTST (./design.sv,158): (time 2885 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2925 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 2935000: Packet 48 Verified. CRC: fbe6cd8e
+xmsim: *E,ASRTST (./design.sv,158): (time 2935 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 2985 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2995 NS).
+tb_crc32.unmblk1
+Time 2995000: CRC Mismatch! Exp: 5d9d0fe3, Got: 05f87714
+xmsim: *E,ASRTST (./design.sv,158): (time 2995 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+xmsim: *E,ASRTST (./design.sv,154): (time 3045 NS) Assertion tb_crc32.u_dut.a_latency has failed
+[SVA] valid_out did not rise 2 cycles after last_word
+Time 3055000: Packet 50 Verified. CRC: c6a36658
+xmsim: *E,ASRTST (./design.sv,158): (time 3055 NS) Assertion tb_crc32.u_dut.a_no_spurious_valid has failed
+[SVA] valid_out without a matching last_word
+
+--- TEST FINISHED ---
+FAILURE: 105 errors found (scoreboard/golden: 11).
+         SVA failures: 94
+Simulation complete via $finish(1) at time 3555 NS + 0
+./testbench.sv:292         $finish;
+xcelium> exit
+
+coverage setup:
+  workdir  :  ./cov_work
+  dutinst  :  tb_crc32(tb_crc32)
+  scope    :  scope
+  testname :  test
+
+coverage files:
+  model(design data) :  ./cov_work/scope/icc_00000000_4aa9fd80.ucm
+  data               :  ./cov_work/scope/test/icc_00000000_4aa9fd80.ucd
+TOOL:	xrun	25.03-s001: Exiting on Nov 08, 2026 at 13:19:14 EST  (total: 00:00:01)
+Exit code expected: 0, received: 1
+Done

@@ -131,9 +131,9 @@ The two injected faults are caught by different checkers: the SVA catches the ti
 2. **One-Bit Change:** A single bit change in the input (from `0x12345678` to `0x12345679`) changes the CRC to `0x17D1E0B7`, which the testbench checks automatically.
 
 ## 6. File Description
-* `CRC32_parallel_pipeline.sv`: The synthesizable RTL design module (includes the optional SVA block and fault-injection switches).
+* `crc32_parallel_pipeline.sv`: The synthesizable RTL design module (includes the optional SVA block and fault-injection switches).
 * `tb_crc32.sv`: Self-checking testbench with automated scoreboard and error reporting.
-* `results/`: Simulation logs of the runs above.
+* `results/`: Cadence Xcelium logs of the three runs above: `xcelium_clean.log`, `xcelium_inject_latency_bug.log` and `xcelium_inject_crc_bug.log`.
 
 ## 7. Tools Used
 * **Language:** SystemVerilog (IEEE 1800-2012)
@@ -144,17 +144,17 @@ The two injected faults are caught by different checkers: the SVA catches the ti
 ## 8. How to Run Simulation
 ```bash
 # Xcelium (SVA enabled)
-xrun +define+CRC_ASSERT -coverage functional CRC32_parallel_pipeline.sv tb_crc32.sv
+xrun +define+CRC_ASSERT -coverage functional crc32_parallel_pipeline.sv tb_crc32.sv
 
 # Fault injection (expected: FAILURE)
-xrun +define+CRC_ASSERT+INJECT_LATENCY_BUG CRC32_parallel_pipeline.sv tb_crc32.sv
-xrun +define+CRC_ASSERT+INJECT_CRC_BUG     CRC32_parallel_pipeline.sv tb_crc32.sv
+xrun +define+CRC_ASSERT+INJECT_LATENCY_BUG crc32_parallel_pipeline.sv tb_crc32.sv
+xrun +define+CRC_ASSERT+INJECT_CRC_BUG     crc32_parallel_pipeline.sv tb_crc32.sv
 ```
 
 ```bash
 # Icarus Verilog (no SVA, immediate checks only)
 # 1. Compile the design and testbench
-iverilog -g2012 -o crc_sim tb_crc32.sv CRC32_parallel_pipeline.sv
+iverilog -g2012 -o crc_sim tb_crc32.sv crc32_parallel_pipeline.sv
 
 # 2. Run the simulation
 vvp crc_sim

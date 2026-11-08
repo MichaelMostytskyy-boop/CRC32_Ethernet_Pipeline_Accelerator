@@ -1,0 +1,190 @@
+[2026-11-08 18:20:12 UTC] xrun -Q -unbuffered '+define+CRC_ASSERT+INJECT_CRC_BUG' '-coverage' 'functional' '+access+r' '-access' '+rw' design.sv testbench.sv  
+TOOL:	xrun	25.03-s001: Started on Nov 08, 2026 at 13:20:12 EST
+xrun: 25.03-s001: (c) Copyright 1995-2025 Cadence Design Systems, Inc.
+	Top level design units:
+		tb_crc32
+Loading snapshot worklib.tb_crc32:sv .................... Done
+SVSEED default: 1
+xcelium> source /xcelium25.03/tools/xcelium/files/xmsimrc
+xcelium> run
+--- Starting Verification ---
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 105 NS).
+tb_crc32.unmblk1
+Time 105000: CRC Mismatch! Exp: af6d87d2, Got: af6d87d3
+xmsim: *E,ERRSEV (./testbench.sv,192): (time 105 NS).
+tb_crc32.unmblk2
+>> GOLDEN CHECK FAILED: got 0xaf6d87d3
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 185 NS).
+tb_crc32.unmblk1
+Time 185000: CRC Mismatch! Exp: 17d1e0b7, Got: 17d1e0b6
+xmsim: *E,ERRSEV (./testbench.sv,204): (time 185 NS).
+tb_crc32.unmblk2
+>> ONE-BIT-CHANGE CHECK FAILED: got 0x17d1e0b6
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 275 NS).
+tb_crc32.unmblk1
+Time 275000: CRC Mismatch! Exp: 1835baa3, Got: 1835baa2
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 295 NS).
+tb_crc32.unmblk1
+Time 295000: CRC Mismatch! Exp: af6d87d2, Got: af6d87d3
+--- Testing True Back-to-Back ---
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 365 NS).
+tb_crc32.unmblk1
+Time 365000: CRC Mismatch! Exp: 1835baa3, Got: 1835baa2
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 375 NS).
+tb_crc32.unmblk1
+Time 375000: CRC Mismatch! Exp: af6d87d2, Got: af6d87d3
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 395 NS).
+tb_crc32.unmblk1
+Time 395000: CRC Mismatch! Exp: af6d87d2, Got: af6d87d3
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 405 NS).
+tb_crc32.unmblk1
+Time 405000: CRC Mismatch! Exp: af6d87d2, Got: af6d87d3
+--- Testing Edge Cases ---
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 505 NS).
+tb_crc32.unmblk1
+Time 505000: CRC Mismatch! Exp: 0fd59b8d, Got: 0fd59b8c
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 565 NS).
+tb_crc32.unmblk1
+Time 565000: CRC Mismatch! Exp: 2cf772b0, Got: 2cf772b1
+--- Starting Randomized Traffic ---
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 675 NS).
+tb_crc32.unmblk1
+Time 675000: CRC Mismatch! Exp: bcc3b98d, Got: bcc3b98c
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 755 NS).
+tb_crc32.unmblk1
+Time 755000: CRC Mismatch! Exp: 152d83c0, Got: 152d83c1
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 845 NS).
+tb_crc32.unmblk1
+Time 845000: CRC Mismatch! Exp: 7b93cb60, Got: 7b93cb61
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 955 NS).
+tb_crc32.unmblk1
+Time 955000: CRC Mismatch! Exp: 910ad3f3, Got: 910ad3f2
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 1055 NS).
+tb_crc32.unmblk1
+Time 1055000: CRC Mismatch! Exp: 6f4ee743, Got: 6f4ee742
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 1115 NS).
+tb_crc32.unmblk1
+Time 1115000: CRC Mismatch! Exp: 9503591c, Got: 9503591d
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 1225 NS).
+tb_crc32.unmblk1
+Time 1225000: CRC Mismatch! Exp: 76decd92, Got: 76decd93
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 1325 NS).
+tb_crc32.unmblk1
+Time 1325000: CRC Mismatch! Exp: 6201c75d, Got: 6201c75c
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 1355 NS).
+tb_crc32.unmblk1
+Time 1355000: CRC Mismatch! Exp: d7ec4b72, Got: d7ec4b73
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 1385 NS).
+tb_crc32.unmblk1
+Time 1385000: CRC Mismatch! Exp: 1fc5de45, Got: 1fc5de44
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 1455 NS).
+tb_crc32.unmblk1
+Time 1455000: CRC Mismatch! Exp: b2acd629, Got: b2acd628
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 1495 NS).
+tb_crc32.unmblk1
+Time 1495000: CRC Mismatch! Exp: 016364f1, Got: 016364f0
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 1605 NS).
+tb_crc32.unmblk1
+Time 1605000: CRC Mismatch! Exp: fd02f79d, Got: fd02f79c
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 1635 NS).
+tb_crc32.unmblk1
+Time 1635000: CRC Mismatch! Exp: a56bbea0, Got: a56bbea1
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 1735 NS).
+tb_crc32.unmblk1
+Time 1735000: CRC Mismatch! Exp: 53e23d8c, Got: 53e23d8d
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 1805 NS).
+tb_crc32.unmblk1
+Time 1805000: CRC Mismatch! Exp: e89e35aa, Got: e89e35ab
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 1885 NS).
+tb_crc32.unmblk1
+Time 1885000: CRC Mismatch! Exp: 5470f84f, Got: 5470f84e
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 1935 NS).
+tb_crc32.unmblk1
+Time 1935000: CRC Mismatch! Exp: fa25a37d, Got: fa25a37c
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2045 NS).
+tb_crc32.unmblk1
+Time 2045000: CRC Mismatch! Exp: 798ef810, Got: 798ef811
+--- Starting Randomized Back-to-Back Traffic ---
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2115 NS).
+tb_crc32.unmblk1
+Time 2115000: CRC Mismatch! Exp: 3988c928, Got: 3988c929
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2165 NS).
+tb_crc32.unmblk1
+Time 2165000: CRC Mismatch! Exp: 80408057, Got: 80408056
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2225 NS).
+tb_crc32.unmblk1
+Time 2225000: CRC Mismatch! Exp: 4002feb5, Got: 4002feb4
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2295 NS).
+tb_crc32.unmblk1
+Time 2295000: CRC Mismatch! Exp: 32e7be99, Got: 32e7be98
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2315 NS).
+tb_crc32.unmblk1
+Time 2315000: CRC Mismatch! Exp: 99030b88, Got: 99030b89
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2385 NS).
+tb_crc32.unmblk1
+Time 2385000: CRC Mismatch! Exp: d2da1587, Got: d2da1586
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2405 NS).
+tb_crc32.unmblk1
+Time 2405000: CRC Mismatch! Exp: 8ff20527, Got: 8ff20526
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2475 NS).
+tb_crc32.unmblk1
+Time 2475000: CRC Mismatch! Exp: ea8da1f9, Got: ea8da1f8
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2505 NS).
+tb_crc32.unmblk1
+Time 2505000: CRC Mismatch! Exp: fb05cdef, Got: fb05cdee
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2535 NS).
+tb_crc32.unmblk1
+Time 2535000: CRC Mismatch! Exp: 1366081b, Got: 1366081a
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2555 NS).
+tb_crc32.unmblk1
+Time 2555000: CRC Mismatch! Exp: b2c4bb2c, Got: b2c4bb2d
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2615 NS).
+tb_crc32.unmblk1
+Time 2615000: CRC Mismatch! Exp: ea74b533, Got: ea74b532
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2645 NS).
+tb_crc32.unmblk1
+Time 2645000: CRC Mismatch! Exp: 0fa93e0f, Got: 0fa93e0e
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2715 NS).
+tb_crc32.unmblk1
+Time 2715000: CRC Mismatch! Exp: 88018360, Got: 88018361
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2725 NS).
+tb_crc32.unmblk1
+Time 2725000: CRC Mismatch! Exp: 848cc2d3, Got: 848cc2d2
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2755 NS).
+tb_crc32.unmblk1
+Time 2755000: CRC Mismatch! Exp: ba5ba257, Got: ba5ba256
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2785 NS).
+tb_crc32.unmblk1
+Time 2785000: CRC Mismatch! Exp: 182ef523, Got: 182ef522
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2855 NS).
+tb_crc32.unmblk1
+Time 2855000: CRC Mismatch! Exp: cf42c6e2, Got: cf42c6e3
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2905 NS).
+tb_crc32.unmblk1
+Time 2905000: CRC Mismatch! Exp: fbe6cd8e, Got: fbe6cd8f
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 2965 NS).
+tb_crc32.unmblk1
+Time 2965000: CRC Mismatch! Exp: 5d9d0fe3, Got: 5d9d0fe2
+xmsim: *E,ERRSEV (./testbench.sv,144): (time 3025 NS).
+tb_crc32.unmblk1
+Time 3025000: CRC Mismatch! Exp: c6a36658, Got: c6a36659
+
+--- TEST FINISHED ---
+FAILURE: 52 errors found (scoreboard/golden: 52).
+         SVA failures: 0
+Simulation complete via $finish(1) at time 3525 NS + 0
+./testbench.sv:292         $finish;
+xcelium> exit
+
+coverage setup:
+  workdir  :  ./cov_work
+  dutinst  :  tb_crc32(tb_crc32)
+  scope    :  scope
+  testname :  test
+
+coverage files:
+  model(design data) :  ./cov_work/scope/icc_00000000_4aa9fd80.ucm
+  data               :  ./cov_work/scope/test/icc_00000000_4aa9fd80.ucd
+TOOL:	xrun	25.03-s001: Exiting on Nov 08, 2026 at 13:20:13 EST  (total: 00:00:01)
+Exit code expected: 0, received: 1
+Done
